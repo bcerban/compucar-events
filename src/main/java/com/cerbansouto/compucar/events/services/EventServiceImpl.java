@@ -2,6 +2,7 @@ package com.cerbansouto.compucar.events.services;
 
 import com.cerbansouto.compucar.events.api.EntityNotFoundException;
 import com.cerbansouto.compucar.events.api.EventService;
+import com.cerbansouto.compucar.events.api.InvalidEventException;
 import com.cerbansouto.compucar.events.domain.Event;
 import com.cerbansouto.compucar.events.domain.EventKey;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,17 +40,26 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public void delete(EventKey key) {
-
+        repository.deleteById(key);
     }
 
     @Override
-    public Event create(Event event) {
-        return null;
+    public Event create(Event event) throws InvalidEventException {
+        // TODO: missing validations
+        Optional<Event> dup = repository.findById(event.getKey());
+        if (dup.isPresent()) {
+            throw new InvalidEventException(String.format("Event with key %s already exists.", event.getKey().toString()));
+        }
+
+        return repository.save(event);
     }
 
     @Override
-    public Event update(Event event) {
-        return null;
+    public Event update(Event event) throws EntityNotFoundException {
+        // TODO: missing validations
+        Event eventToUpdate = fetch(event.getKey());
+        eventToUpdate.setPayload(event.getPayload());
+        return repository.save(eventToUpdate);
     }
 
     @PostConstruct

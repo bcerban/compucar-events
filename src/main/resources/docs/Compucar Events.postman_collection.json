@@ -1,0 +1,217 @@
+{
+	"info": {
+		"_postman_id": "7b5e1ce5-54c5-4623-b35b-b6ff0aa5e4f8",
+		"name": "Compucar Events",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List events",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/events",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List events for service",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/events/SRV010",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"events",
+						"SRV010"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find event by service code and name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/events/SRV010/name/AIR_FLOW_SENSOR",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"events",
+						"SRV010",
+						"name",
+						"AIR_FLOW_SENSOR"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create event",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"serviceCode\": \"SRV011\",\n    \"name\": \"AIR_FLOW_SENSOR\",\n    \"payload\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/events/",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"events",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create event duplicate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"serviceCode\": \"SRV010\",\n    \"name\": \"AIR_FLOW_SENSOR\",\n    \"payload\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/events/",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"events",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update event",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"serviceCode\": \"SRV010\",\n    \"name\": \"AIR_FLOW_SENSOR\",\n    \"payload\": \"{\\\"time\\\":\\\"2019-11-10T19:01:57\\\"}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/events/",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"events",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete event by service code and name",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/events/SRV010/name/O2_SENSOR",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"events",
+						"SRV010",
+						"name",
+						"O2_SENSOR"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "b6bd7b94-e27e-429d-a973-0094272c7b02",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f4f42f69-182c-4cd2-aabe-5544b77f54b8",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "0839e8f0-5e78-4290-88e1-8785c431d9a8",
+			"key": "domain",
+			"value": "http://localhost:8083",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

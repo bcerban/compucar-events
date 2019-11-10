@@ -1,5 +1,6 @@
 package com.cerbansouto.compucar.events.domain;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.Data;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
@@ -9,6 +10,7 @@ import org.springframework.data.cassandra.core.mapping.Table;
 public class Event {
 
     @PrimaryKey
+    @JsonUnwrapped
     private EventKey key;
 
     private String payload;
