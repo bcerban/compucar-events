@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/events")
@@ -23,8 +25,9 @@ public class EventController {
     }
 
     @GetMapping("/{serviceCode}")
-    public List<Event> getEventsForService(@PathVariable String serviceCode) {
-        return service.listForService(serviceCode);
+    public List<String> getEventsForService(@PathVariable String serviceCode) {
+        List<Event> events = service.listForService(serviceCode);
+        return events.stream().map(e -> e.getKey().getName()).collect(Collectors.toList());
     }
 
     @GetMapping("/{serviceCode}/name/{eventName}")
