@@ -44,11 +44,12 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event create(Event event) throws InvalidEventException {
-        // TODO: missing validations
+    public Event create(Event event) {
         Optional<Event> dup = repository.findById(event.getKey());
         if (dup.isPresent()) {
-            throw new InvalidEventException(String.format("Event with key %s already exists.", event.getKey().toString()));
+            Event eventToUpdate = dup.get();
+            eventToUpdate.setPayload(event.getPayload());
+            return repository.save(eventToUpdate);
         }
 
         return repository.save(event);
@@ -62,15 +63,15 @@ public class EventServiceImpl implements EventService {
         return repository.save(eventToUpdate);
     }
 
-    @PostConstruct
-    public void init() {
-        repository.save(new Event(new EventKey("SRV010", "ENGINE_SENSOR"), ""));
-        repository.save(new Event(new EventKey("SRV010", "O2_SENSOR"), ""));
-        repository.save(new Event(new EventKey("SRV010", "FUEL_PRESSURE_SENSOR"), ""));
-        repository.save(new Event(new EventKey("SRV010", "AIR_FLOW_SENSOR"), ""));
-        repository.save(new Event(new EventKey("SRV017", "CRANKSHAFT_SENSOR"), ""));
-        repository.save(new Event(new EventKey("SRV017", "O2_SENSOR"), ""));
-        repository.save(new Event(new EventKey("SRV017", "VOLTAGE_SENSOR"), ""));
-        repository.save(new Event(new EventKey("SRV017", "NOX_SENSOR"), ""));
-    }
+//    @PostConstruct
+//    public void init() {
+//        repository.save(new Event(new EventKey("SRV010", "ENGINE_SENSOR"), ""));
+//        repository.save(new Event(new EventKey("SRV010", "O2_SENSOR"), ""));
+//        repository.save(new Event(new EventKey("SRV010", "FUEL_PRESSURE_SENSOR"), ""));
+//        repository.save(new Event(new EventKey("SRV010", "AIR_FLOW_SENSOR"), ""));
+//        repository.save(new Event(new EventKey("SRV017", "CRANKSHAFT_SENSOR"), ""));
+//        repository.save(new Event(new EventKey("SRV017", "O2_SENSOR"), ""));
+//        repository.save(new Event(new EventKey("SRV017", "VOLTAGE_SENSOR"), ""));
+//        repository.save(new Event(new EventKey("SRV017", "NOX_SENSOR"), ""));
+//    }
 }

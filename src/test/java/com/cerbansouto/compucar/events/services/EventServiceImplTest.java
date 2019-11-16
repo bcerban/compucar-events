@@ -71,18 +71,18 @@ public class EventServiceImplTest {
         verify(repository, times(1)).deleteById(key);
     }
 
-    @Test(expected = InvalidEventException.class)
-    public void createDuplicate() throws InvalidEventException {
+    @Test
+    public void createDuplicate() {
         Event event = new Event(new EventKey("testCode", "testName"), "");
         when(repository.findById(event.getKey())).thenReturn(Optional.of(event));
         service.create(event);
 
         verify(repository, times(1)).findById(event.getKey());
-        verify(repository, times(0)).save(event);
+        verify(repository, times(1)).save(event);
     }
 
     @Test
-    public void create() throws InvalidEventException {
+    public void create() {
         Event event = new Event(new EventKey("testCode", "testName"), "");
         when(repository.findById(event.getKey())).thenReturn(Optional.empty());
         service.create(event);

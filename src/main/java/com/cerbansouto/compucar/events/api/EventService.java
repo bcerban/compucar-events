@@ -9,7 +9,7 @@ public interface EventService {
     List<Event> list();
     List<Event> listForService(String serviceCode);
     Event fetch(EventKey key) throws EntityNotFoundException;
-    Event create(Event event) throws InvalidEventException;
+    Event create(Event event);
     Event update(Event event) throws EntityNotFoundException;
     void delete(EventKey key);
 }
