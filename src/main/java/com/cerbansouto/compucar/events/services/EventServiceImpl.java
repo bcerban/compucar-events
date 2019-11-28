@@ -55,7 +55,6 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event update(Event event) throws EntityNotFoundException {
-        // TODO: missing validations
         Event eventToUpdate = fetch(event.getKey());
         eventToUpdate.setPayload(event.getPayload());
         return repository.save(eventToUpdate);
